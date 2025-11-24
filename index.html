@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komp-Hesap | Aksaray</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121212">
+    <style>
+        body { background-color: #121212; color: #e0e0e0; font-family: sans-serif; }
+        .card { background-color: #1e1e1e; border: 1px solid #333; border-radius: 15px; }
+        .form-control { background-color: #2d2d2d; border: 1px solid #444; color: #fff; height: 50px; font-size: 1.1rem; border-radius: 10px; }
+        .form-control:focus { background-color: #333; color: #fff; border-color: #ffc107; box-shadow: none; }
+        .btn-custom { background-color: #ffc107; color: #000; font-weight: bold; height: 55px; font-size: 1.2rem; border-radius: 10px; }
+        .result-box { display: none; border-left: 5px solid #ffc107; background: #252525; }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h3 class="text-warning fw-bold">⚡ Kompanzasyon Asistanı</h3>
+        <small class="text-muted">Aksaray Sanayi Tipi Hesaplayıcı</small>
+    </div>
+
+    <div class="card p-3 shadow">
+        <div class="mb-3">
+            <label class="form-label text-light">Aktif Tüketim (kWh)</label>
+            <input type="number" id="aktif" class="form-control" placeholder="Örn: 1000">
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-light">Endüktif Tüketim (kVArh)</label>
+            <input type="number" id="enduktif" class="form-control" placeholder="Örn: 250">
+        </div>
+        
+        <button onclick="hesapla()" class="btn btn-custom w-100 mt-2">HESAPLA</button>
+    </div>
+
+    <div id="sonucAlani" class="card p-3 mt-4 result-box">
+        <h5 class="text-center mb-3">Sonuçlar</h5>
+        <div class="d-flex justify-content-between mb-2">
+            <span>Mevcut Oran:</span>
+            <span id="oranSonuc" class="fw-bold text-warning"></span>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <span>Durum:</span>
+            <span id="durumSonuc" class="fw-bold"></span>
+        </div>
+        <hr class="border-secondary">
+        <h6 class="text-center text-muted">Gereken Kondansatör Gücü</h6>
+        <h1 class="text-center display-4 fw-bold text-warning"><span id="kvarSonuc">0</span> <span style="font-size:1.5rem">kVar</span></h1>
+    </div>
+    
+    <div class="mt-5 text-center text-muted small">
+        <p>Ruhi Atakan BEKMEZCİ &copy; 2025</p>
+    </div>
+</div>
+
+<script>
+    // PWA Service Worker Kaydı
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+
+    function hesapla() {
+        let aktif = parseFloat(document.getElementById('aktif').value);
+        let enduktif = parseFloat(document.getElementById('enduktif').value);
+
+        if (isNaN(aktif) || isNaN(enduktif)) { alert("Değerleri gir ustam!"); return; }
+
+        let oran = (enduktif / aktif) * 100;
+        
+        // Basitleştirilmiş Pratik Hesap: 
+        // %20 sınırının altına, güvenli bölgeye (%10 civarı) çekmek için gereken güç.
+        // Formül: Qc = P * (tanPhi1 - tanPhi2)
+        // Mevcut tanPhi1 = Endüktif / Aktif
+        // Hedef tanPhi2 (Cosfi 0.995 için) ≈ 0.10
+        
+        let tanPhi1 = enduktif / aktif;
+        let tanPhi2 = 0.05; // Hedef oranın %5 olması (Garanti olsun)
+        
+        // Eğer zaten sınırın altındaysa kondansatöre gerek yok ama biz yine de gösterelim.
+        let gerekenKvar = aktif * (tanPhi1 - tanPhi2);
+        if (gerekenKvar < 0) gerekenKvar = 0;
+
+        document.getElementById('sonucAlani').style.display = 'block';
+        document.getElementById('oranSonuc').innerText = "%" + oran.toFixed(1);
+        document.getElementById('kvarSonuc').innerText = gerekenKvar.toFixed(1);
+
+        let durumText = document.getElementById('durumSonuc');
+        if(oran > 20) {
+            durumText.innerText = "CEZALI";
+            durumText.className = "fw-bold text-danger";
+        } else {
+            durumText.innerText = "NORMAL";
+            durumText.className = "fw-bold text-success";
+        }
+    }
+</script>
+</body>
+</html>
