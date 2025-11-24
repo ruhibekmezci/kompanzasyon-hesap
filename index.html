@@ -6,194 +6,236 @@
     <title>Pro Kompanzasyon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0d0d0d">
+    <meta name="theme-color" content="#121212">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #0d0d0d; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-bottom: 50px; }
-        .card-custom { background-color: #1a1a1a; border: 1px solid #333; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .form-control { background-color: #262626; border: 1px solid #404040; color: #fff; height: 55px; font-size: 1.1rem; border-radius: 8px; }
-        .form-control:focus { background-color: #333; color: #fff; border-color: #00d2d3; box-shadow: 0 0 10px rgba(0, 210, 211, 0.3); }
-        .btn-neon { background: linear-gradient(45deg, #00d2d3, #0984e3); color: #fff; font-weight: bold; height: 60px; font-size: 1.2rem; border: none; border-radius: 8px; width: 100%; text-transform: uppercase; letter-spacing: 1px; }
+        /* GENEL TASARIM AYNI - EKLEMELER VAR */
+        body { background-color: #121212; color: #ffffff; font-family: 'Segoe UI', sans-serif; padding-bottom: 50px; }
+        .card-custom { background-color: #1e1e1e; border: 1px solid #333; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+        .form-control, .form-select { background-color: #2c2c2c; border: 1px solid #444; color: #fff !important; height: 55px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; }
+        .form-control::placeholder { color: #888; font-weight: normal; }
+        .form-control:focus, .form-select:focus { background-color: #333; color: #fff; border-color: #00d2d3; box-shadow: 0 0 10px rgba(0, 210, 211, 0.2); }
+        .btn-neon { background: linear-gradient(45deg, #00d2d3, #0984e3); color: #fff; font-weight: 800; height: 60px; font-size: 1.2rem; border: none; border-radius: 8px; width: 100%; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0, 210, 211, 0.4); }
         .btn-neon:active { transform: scale(0.98); }
-        .result-value { font-size: 2.5rem; font-weight: 800; color: #00d2d3; }
-        .label-tech { color: #888; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-        .progress { height: 10px; background-color: #333; border-radius: 5px; }
-        .step-badge { background-color: #333; border: 1px solid #00d2d3; color: #00d2d3; padding: 5px 10px; border-radius: 4px; margin: 3px; display: inline-block; }
+        .result-value { font-size: 3rem; font-weight: 800; color: #00d2d3; }
+        .label-tech { color: #aaa; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 10px; display: block;}
+        .progress { height: 12px; background-color: #333; border-radius: 6px; margin-top: 5px;}
+        .step-badge { background-color: #2c2c2c; border: 1px solid #00d2d3; color: #ffffff; font-weight: bold; padding: 8px 12px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 1.1rem;}
+        
+        /* RÖLE KARTI ÖZEL STİLİ */
+        .relay-card { border-left: 4px solid #ff9f43; background: #252525; }
+        .relay-param { display: flex; justify-content: space-between; border-bottom: 1px solid #444; padding: 8px 0; }
+        .relay-param:last-child { border-bottom: none; }
+        .param-name { color: #ccc; }
+        .param-val { color: #ff9f43; font-weight: bold; font-family: monospace; font-size: 1.1em; }
     </style>
 </head>
 <body>
 
 <div class="container mt-3">
-    <div class="d-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-4 pt-2">
         <div>
-            <h4 class="fw-bold m-0" style="color:#00d2d3"><i class="fas fa-bolt"></i> KOMP-PRO</h4>
-            <small class="text-muted">Mühendislik Hesap Modülü</small>
+            <h3 class="fw-bold m-0 text-white"><i class="fas fa-bolt"></i> KOMP-PRO</h3>
+            <small class="text-secondary">Aksaray Sanayi Modülü V3.0</small>
         </div>
-        <div class="badge bg-secondary">V2.0</div>
     </div>
 
     <div class="card-custom p-4 mb-4">
-        <h6 class="label-tech mb-3"><i class="fas fa-sliders-h"></i> Sayaç Değerleri (Fark)</h6>
+        <span class="label-tech"><i class="fas fa-edit"></i> Veri Girişi</span>
+        
         <div class="mb-3">
-            <input type="number" id="aktif" class="form-control" placeholder="Aktif (kWh)">
+            <label class="text-white small mb-1">Mevcut Röle Markası</label>
+            <select id="roleMarka" class="form-select">
+                <option value="genel">Marka Farketmez (Genel)</option>
+                <option value="entes">ENTES (RG3 Serisi)</option>
+                <option value="kaelse">KAEL (Varkombi)</option>
+                <option value="schneider">Schneider / Siemens</option>
+            </select>
         </div>
-        <div class="row g-2">
+
+        <div class="mb-3">
+            <label class="text-white small mb-1">Aktif Tüketim (kWh)</label>
+            <input type="number" id="aktif" class="form-control" placeholder="Örn: 1000">
+        </div>
+        
+        <div class="row g-3">
             <div class="col-6">
-                <input type="number" id="enduktif" class="form-control" placeholder="Endüktif (kVArh)">
+                <label class="text-white small mb-1">Endüktif (kVArh)</label>
+                <input type="number" id="enduktif" class="form-control" placeholder="Örn: 150">
             </div>
             <div class="col-6">
-                <input type="number" id="kapasitif" class="form-control" placeholder="Kapasitif (kVArh)">
+                <label class="text-white small mb-1">Kapasitif (kVArh)</label>
+                <input type="number" id="kapasitif" class="form-control" placeholder="Örn: 50">
             </div>
         </div>
-        <button onclick="hesapla()" class="btn-neon mt-4">Analiz Et <i class="fas fa-arrow-right ms-2"></i></button>
+        
+        <button onclick="hesapla()" class="btn-neon mt-4">ANALİZ ET <i class="fas fa-check-circle ms-2"></i></button>
     </div>
 
     <div id="sonucAlani" style="display:none;">
         
         <div class="card-custom p-4 mb-3">
-            <h6 class="label-tech mb-3">Sistem Sağlığı</h6>
-            
-            <div class="mb-3">
-                <div class="d-flex justify-content-between">
-                    <span>Endüktif Oran</span>
+            <span class="label-tech">Sistem Durumu</span>
+            <div class="mb-4">
+                <div class="d-flex justify-content-between text-white">
+                    <span>Endüktif (Sınır: %20)</span>
                     <span id="endText" class="fw-bold">0%</span>
                 </div>
-                <div class="progress mt-1">
-                    <div id="endBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
-                </div>
-                <small class="text-muted" style="font-size: 0.7rem">Yasal Sınır: %20</small>
+                <div class="progress"><div id="endBar" class="progress-bar" style="width: 0%"></div></div>
             </div>
-
-            <div class="mb-1">
-                <div class="d-flex justify-content-between">
-                    <span>Kapasitif Oran</span>
+            <div class="mb-2">
+                <div class="d-flex justify-content-between text-white">
+                    <span>Kapasitif (Sınır: %15)</span>
                     <span id="kapText" class="fw-bold">0%</span>
                 </div>
-                <div class="progress mt-1">
-                    <div id="kapBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
-                </div>
-                <small class="text-muted" style="font-size: 0.7rem">Yasal Sınır: %15</small>
+                <div class="progress"><div id="kapBar" class="progress-bar" style="width: 0%"></div></div>
             </div>
         </div>
 
-        <div class="card-custom p-4 mb-3 text-center border-warning" style="border-color: #00d2d3 !important;">
-            <h6 class="label-tech text-white">Gereken Kondansatör Gücü</h6>
-            <div class="result-value my-2"><span id="qcSonuc">0</span> <small style="font-size:1rem; color:#fff">kVar</small></div>
-            <p class="text-muted small mb-0">Hedef Cosφ: 1.00 referans alınmıştır.</p>
+        <div class="card-custom p-4 mb-3 text-center" style="border: 2px solid #00d2d3;">
+            <span class="label-tech text-white">GEREKEN GÜÇ</span>
+            <div class="result-value my-1"><span id="qcSonuc">0</span> <span style="font-size:1.5rem; color:#fff">kVar</span></div>
+            <div id="oneriKutusu" class="mt-3"></div>
         </div>
 
-        <div class="card-custom p-4">
-            <h6 class="label-tech mb-3 text-warning"><i class="fas fa-lightbulb"></i> Uzman Tavsiyesi</h6>
-            <p class="small text-muted">Mevcut sisteme eklemen gereken kademeler:</p>
-            <div id="oneriKutusu">
+        <div class="card-custom p-4 mb-3 relay-card">
+            <span class="label-tech text-warning"><i class="fas fa-cogs"></i> HIZLI AYAR REÇETESİ</span>
+            <h5 id="roleBaslik" class="text-white fw-bold mb-3">Genel Ayarlar</h5>
+            
+            <div id="roleAyarlari">
                 </div>
+            
+            <div class="mt-3 p-2 bg-dark rounded text-muted small">
+                <i class="fas fa-info-circle"></i> Not: Bu değerler referanstır. Akım trafosu oranını (k) kontrol etmeyi unutma!
+            </div>
+        </div>
+        
+        <div class="text-center mt-4 text-secondary small">
+            Ruhi Atakan BEKMEZCİ &copy; 2025
         </div>
     </div>
 </div>
 
 <script>
-    // PWA Kaydı
     if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 
+    // RÖLE VERİ TABANI (BİLGİ BANKASI)
+    const roleData = {
+        'entes': {
+            title: 'ENTES RG3-12C Ayarları',
+            params: [
+                { name: 'Hedef Cosφ', val: '1.00' },
+                { name: 'Program Modu', val: 'Otomatik (P-0)' },
+                { name: 'C/k Ayarı', val: 'Oto. Öğrenme' },
+                { name: 'Kademe Alma Süresi', val: '10 sn' },
+                { name: 'Kademe Bırakma', val: '5 sn' }
+            ]
+        },
+        'kaelse': {
+            title: 'KAEL Varkombi Ayarları',
+            params: [
+                { name: 'Cosφ Set', val: '1.000' },
+                { name: 'Ton Süresi', val: '7 sn' },
+                { name: 'Toff Süresi', val: '7 sn' },
+                { name: 'Prog', val: 'Auto' },
+                { name: 'Trafo Oranı', val: 'Menüden Gir' }
+            ]
+        },
+        'schneider': {
+            title: 'Schneider / Siemens',
+            params: [
+                { name: 'Target PF (Hedef)', val: '1.00' },
+                { name: 'Sensitivity', val: 'Auto / 60s' },
+                { name: 'Step Time', val: '10s - 30s' },
+                { name: 'Switching Prog', val: 'Linear / Circular' }
+            ]
+        },
+        'genel': {
+            title: 'Genel Pano Ayarları',
+            params: [
+                { name: 'Hedef Cosφ', val: '0.99 - 1.00' },
+                { name: 'Reaktif Oran', val: 'Min %5' },
+                { name: 'Adım Süresi', val: 'Orta (10sn)' },
+                { name: 'Kondansatör', val: 'Deşarjı Bekle' }
+            ]
+        }
+    };
+
     function hesapla() {
-        // Verileri Al
         let p = parseFloat(document.getElementById('aktif').value);
-        let ri = parseFloat(document.getElementById('enduktif').value); // Endüktif
-        let rc = parseFloat(document.getElementById('kapasitif').value); // Kapasitif
+        let ri = parseFloat(document.getElementById('enduktif').value); 
+        let rc = parseFloat(document.getElementById('kapasitif').value); 
+        let marka = document.getElementById('roleMarka').value;
 
-        if (!p) { alert("Aktif tüketimi girmeden hesap olmaz usta."); return; }
-        if (isNaN(ri)) ri = 0;
-        if (isNaN(rc)) rc = 0;
+        if (!p) { alert("Aktif değer boş olamaz!"); return; }
+        if (isNaN(ri)) ri = 0; if (isNaN(rc)) rc = 0;
 
-        // 1. Oran Hesapları
+        // 1. Hesaplar
         let endOran = (ri / p) * 100;
         let kapOran = (rc / p) * 100;
+        let tanPhi1 = ri / p;
+        let tanPhi2 = 0.05; 
+        let qc = (endOran > 10) ? p * (tanPhi1 - tanPhi2) : 0;
+        if (qc < 0) qc = 0;
 
-        // 2. Ekranı Aç
+        // 2. UI Göster
         document.getElementById('sonucAlani').style.display = 'block';
+        setTimeout(() => { document.getElementById('sonucAlani').scrollIntoView({behavior: 'smooth'}); }, 100);
 
-        // 3. Bar Grafikleri Ayarla
+        // 3. Barları Güncelle
         updateBar('end', endOran, 20);
         updateBar('kap', kapOran, 15);
-
-        // 4. Gereken Kondansatör (Qc) Hesabı
-        // Basit saha hesabı: Endüktif yükü güvenli bölgeye (%5 civarı) çekmek.
-        // Eğer oran %20'den büyükse müdahale şart.
-        // Formül: Qc = P * (tanPhi1 - tanPhi2)
-        
-        let tanPhi1 = ri / p;
-        let tanPhi2 = 0.05; // Hedef
-        
-        let qc = 0;
-        // Sadece endüktif cezadaysa veya sınıra yakınsa öneri verelim
-        if (endOran > 10) {
-            qc = p * (tanPhi1 - tanPhi2);
-        }
-
-        if (qc < 0) qc = 0;
-        
         document.getElementById('qcSonuc').innerText = qc.toFixed(1);
-
-        // 5. Akıllı Kademe Önerisi (Greedy Algoritması - Basit Versiyon)
         kademeOner(qc);
+
+        // 4. RÖLE REÇETESİNİ DOLDUR
+        let data = roleData[marka];
+        document.getElementById('roleBaslik').innerText = data.title;
+        let html = '';
+        data.params.forEach(item => {
+            html += `
+            <div class="relay-param">
+                <span class="param-name">${item.name}</span>
+                <span class="param-val">${item.val}</span>
+            </div>`;
+        });
+        document.getElementById('roleAyarlari').innerHTML = html;
     }
 
     function updateBar(type, val, limit) {
         let bar = document.getElementById(type + 'Bar');
         let text = document.getElementById(type + 'Text');
-        
-        let percent = val > 100 ? 100 : val; // Bar taşmasın
+        let percent = val > 100 ? 100 : val; 
         bar.style.width = percent + '%';
         text.innerText = '%' + val.toFixed(1);
-
         if (val > limit) {
-            bar.className = 'progress-bar bg-danger'; // Kırmızı
+            bar.className = 'progress-bar bg-danger progress-bar-striped progress-bar-animated';
             text.className = 'fw-bold text-danger';
         } else if (val > (limit - 5)) {
-            bar.className = 'progress-bar bg-warning'; // Sarı (Risk)
+            bar.className = 'progress-bar bg-warning';
         } else {
-            bar.className = 'progress-bar bg-success'; // Yeşil
+            bar.className = 'progress-bar bg-success';
             text.className = 'fw-bold text-success';
         }
     }
 
     function kademeOner(ihtiyac) {
         let kutu = document.getElementById('oneriKutusu');
-        kutu.innerHTML = ''; // Temizle
-
         if (ihtiyac <= 0.5) {
-            kutu.innerHTML = '<span class="text-success">Sistem stabil, müdahaleye gerek yok.</span>';
+            kutu.innerHTML = '<span class="text-success small"><i class="fas fa-check"></i> İlave kondansatör gerekmiyor.</span>';
             return;
         }
-
-        // Standart Kondansatör Değerleri
         let standartlar = [50, 40, 30, 25, 20, 15, 12.5, 10, 7.5, 5, 2.5, 1.5, 1];
         let kalan = ihtiyac;
         let onerilenler = [];
-
-        // Basit dağılım mantığı
         standartlar.forEach(kap => {
-            while (kalan >= kap * 0.9) { // %90'ını karşılıyorsa o kondansatörü ekle
-                onerilenler.push(kap);
-                kalan -= kap;
-            }
+            while (kalan >= kap * 0.9) { onerilenler.push(kap); kalan -= kap; }
         });
-
-        if (onerilenler.length === 0 && kalan > 0.5) onerilenler.push('1'); // En küçük at
-
+        if (onerilenler.length === 0 && kalan > 0.5) onerilenler.push('1'); 
         let html = '';
-        if (onerilenler.length > 0) {
-            onerilenler.forEach(val => {
-                html += `<div class="step-badge">${val} kVar</div>`;
-            });
-            html += `<br><small class="text-muted mt-2 d-block">Toplam ${onerilenler.length} kademe eklenebilir.</small>`;
-        } else {
-            html = '<span class="text-muted">Hesaplanan değer çok düşük.</span>';
-        }
-        
+        onerilenler.forEach(val => { html += `<span class="step-badge">+${val}</span>`; });
         kutu.innerHTML = html;
     }
 </script>
-
 </body>
 </html>
