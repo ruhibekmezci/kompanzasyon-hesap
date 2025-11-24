@@ -3,193 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Komp-Pro TR</title>
+    <title>TR-PRO V7.2 | EMO Onaylı</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#121212">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #121212; color: #ffffff; font-family: 'Segoe UI', sans-serif; padding-bottom: 50px; }
-        .card-custom { background-color: #1e1e1e; border: 1px solid #333; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
-        .form-control, .form-select { background-color: #2c2c2c; border: 1px solid #444; color: #fff !important; height: 55px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; }
-        .form-control::placeholder { color: #888; font-weight: normal; }
-        .form-control:focus, .form-select:focus { background-color: #333; color: #fff; border-color: #00d2d3; box-shadow: 0 0 10px rgba(0, 210, 211, 0.2); }
-        .btn-neon { background: linear-gradient(45deg, #00d2d3, #0984e3); color: #fff; font-weight: 800; height: 60px; font-size: 1.2rem; border: none; border-radius: 8px; width: 100%; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0, 210, 211, 0.4); }
-        .btn-neon:active { transform: scale(0.98); }
-        .result-value { font-size: 3rem; font-weight: 800; color: #00d2d3; }
-        .label-tech { color: #aaa; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 10px; display: block;}
-        .progress { height: 12px; background-color: #333; border-radius: 6px; margin-top: 5px;}
-        .step-badge { background-color: #2c2c2c; border: 1px solid #00d2d3; color: #ffffff; font-weight: bold; padding: 8px 12px; border-radius: 6px; margin: 4px; display: inline-block; font-size: 1.1rem;}
+        /* TASARIM */
+        body { background-color: #121212; color: #ffffff; font-family: 'Segoe UI', sans-serif; padding-bottom: 80px; }
+        .card-custom { background-color: #1e1e1e; border: 1px solid #333; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.8); margin-bottom: 20px; }
+        .form-control, .form-select { background-color: #2c2c2c; border: 1px solid #444; color: #fff !important; height: 50px; font-size: 1.1rem; font-weight: bold; }
+        .form-control:focus, .form-select:focus { background-color: #333; border-color: #ffc107; box-shadow: none; }
+        
+        .nav-pills .nav-link { color: #888; border-radius: 10px; padding: 12px 20px; margin: 0 5px; font-weight: bold; border: 1px solid #333; }
+        .nav-pills .nav-link.active { background-color: #ffc107; color: #000; border-color: #ffc107; }
+        
+        .result-value { font-size: 2.8rem; font-weight: 800; color: #ffc107; text-shadow: 0 0 10px rgba(255, 193, 7, 0.3); }
+        .label-tech { color: #aaa; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; font-weight: 600; }
+        
+        .cable-box { border: 2px solid #28a745; background: rgba(40, 167, 69, 0.1); padding: 15px; border-radius: 10px; text-align: center; margin-top: 15px; }
+        .danger-box { border: 2px solid #dc3545; background: rgba(220, 53, 69, 0.1); }
+        
+        .edas-badge { background-color: #0984e3; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-top: 5px; }
+        .step-badge { background-color: #2c2c2c; border: 1px solid #ffc107; color: #ffffff; font-weight: bold; padding: 5px 10px; border-radius: 6px; margin: 3px; display: inline-block; font-size: 1rem;}
+        
+        /* Röle Kartı Stili */
         .relay-card { border-left: 4px solid #ff9f43; background: #252525; }
         .relay-param { display: flex; justify-content: space-between; border-bottom: 1px solid #444; padding: 8px 0; }
         .relay-param:last-child { border-bottom: none; }
-        .param-name { color: #ccc; }
-        .param-val { color: #ff9f43; font-weight: bold; font-family: monospace; font-size: 1.1em; }
-        .note-box { background-color: rgba(255, 193, 7, 0.1); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.2); border-radius: 8px; padding: 10px; font-size: 0.9rem; margin-top: 15px; }
-        
-        /* EDAŞ Badge */
-        .edas-badge { background-color: #0984e3; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-top: 5px; }
+
+        /* YENİ: Okunabilir Referans Yazısı */
+        .readable-ref { color: #d1d1d1 !important; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <div class="container mt-3">
-    <div class="d-flex align-items-center justify-content-between mb-4 pt-2">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h3 class="fw-bold m-0 text-white"><i class="fas fa-bolt"></i> KOMP-PRO</h3>
-            <small class="text-secondary">Ulusal Kompanzasyon Modülü</small>
+            <h4 class="fw-bold text-white m-0"><i class="fas fa-charging-station text-warning"></i> TR-PRO V7.2</h4>
+            <small class="text-muted" style="font-size: 0.75rem;">Yönetmelik Uyumlu Hesaplayıcı</small>
         </div>
         <div class="text-end">
-            <span class="badge bg-secondary">V4.0 TR</span>
+            <span class="badge bg-secondary">TSE/EMO</span>
         </div>
     </div>
 
-    <div class="card-custom p-4 mb-4">
-        <span class="label-tech"><i class="fas fa-map-marker-alt"></i> Lokasyon & Cihaz</span>
+    <ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-komp-tab" data-bs-toggle="pill" data-bs-target="#pills-komp" type="button"><i class="fas fa-bolt"></i> Kompanzasyon</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-kablo-tab" data-bs-toggle="pill" data-bs-target="#pills-kablo" type="button"><i class="fas fa-ruler-horizontal"></i> Kablo & Kesit</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
         
-        <div class="mb-3">
-            <select id="sehirSecim" class="form-select" onchange="edasGetir()">
-                <option value="0" selected disabled>Şehir Seçiniz...</option>
-                </select>
-            <div id="edasBilgi" style="display:none;">
-                <span class="edas-badge" id="edasAd"></span>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <select id="roleMarka" class="form-select">
-                <option value="genel">Röle: Genel / Farketmez</option>
-                <option value="entes">ENTES (RG3 Serisi)</option>
-                <option value="kaelse">KAEL (Varkombi)</option>
-                <option value="schneider">Schneider / Siemens</option>
-            </select>
-        </div>
-
-        <hr class="border-secondary">
-
-        <span class="label-tech"><i class="fas fa-edit"></i> Sayaç Değerleri</span>
-        <div class="mb-3">
-            <input type="number" id="aktif" class="form-control" placeholder="Aktif (kWh)">
-        </div>
-        <div class="row g-3">
-            <div class="col-6">
-                <input type="number" id="enduktif" class="form-control" placeholder="Endüktif (kVArh)">
-            </div>
-            <div class="col-6">
-                <input type="number" id="kapasitif" class="form-control" placeholder="Kapasitif (kVArh)">
-            </div>
-        </div>
-        
-        <button onclick="hesapla()" class="btn-neon mt-4">ANALİZ ET <i class="fas fa-check-circle ms-2"></i></button>
-    </div>
-
-    <div id="sonucAlani" style="display:none;">
-        <div class="card-custom p-4 mb-3">
-            <span class="label-tech">Ceza Analizi (<span id="bolgeAdi">TR Geneli</span>)</span>
-            <div class="mb-4">
-                <div class="d-flex justify-content-between text-white">
-                    <span>Endüktif (Sınır: %20)</span>
-                    <span id="endText" class="fw-bold">0%</span>
+        <div class="tab-pane fade show active" id="pills-komp" role="tabpanel">
+            <div class="card-custom p-4">
+                <span class="label-tech"><i class="fas fa-map-marker-alt"></i> Lokasyon & Cihaz</span>
+                <div class="mb-3">
+                    <select id="sehirSecim" class="form-select" onchange="edasGetir()">
+                        <option value="0" selected disabled>Şehir Seçiniz...</option>
+                    </select>
+                    <div id="edasBilgi" style="display:none;">
+                        <span class="edas-badge" id="edasAd"></span>
+                    </div>
                 </div>
-                <div class="progress"><div id="endBar" class="progress-bar" style="width: 0%"></div></div>
-            </div>
-            <div class="mb-2">
-                <div class="d-flex justify-content-between text-white">
-                    <span>Kapasitif (Sınır: %15)</span>
-                    <span id="kapText" class="fw-bold">0%</span>
+                <div class="mb-3">
+                    <select id="roleMarka" class="form-select">
+                        <option value="genel">Röle: Genel / Farketmez</option>
+                        <option value="entes">ENTES (RG3 Serisi)</option>
+                        <option value="kaelse">KAEL (Varkombi)</option>
+                        <option value="schneider">Schneider / Siemens</option>
+                    </select>
                 </div>
-                <div class="progress"><div id="kapBar" class="progress-bar" style="width: 0%"></div></div>
+                <hr class="border-secondary">
+                <span class="label-tech"><i class="fas fa-edit"></i> Sayaç Değerleri (Fark)</span>
+                <div class="mb-3"><input type="number" id="aktif" class="form-control" placeholder="Aktif Tüketim (kWh)"></div>
+                <div class="row g-2">
+                    <div class="col-6"><input type="number" id="enduktif" class="form-control" placeholder="Endüktif (kVArh)"></div>
+                    <div class="col-6"><input type="number" id="kapasitif" class="form-control" placeholder="Kapasitif (kVArh)"></div>
+                </div>
+                <button onclick="hesaplaKomp()" class="btn btn-warning w-100 mt-4 fw-bold" style="height:55px; color:black;">ANALİZ ET</button>
+            </div>
+
+            <div id="sonucKomp" style="display:none;">
+                <div class="card-custom p-4 mb-3">
+                    <span class="label-tech">Ceza Analizi (<span id="bolgeAdi">TR Geneli</span>)</span>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between text-white"><span>Endüktif (Sınır: %20)</span><span id="endText" class="fw-bold">0%</span></div>
+                        <div class="progress" style="height:10px; background:#333"><div id="endBar" class="progress-bar" style="width: 0%"></div></div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between text-white"><span>Kapasitif (Sınır: %15)</span><span id="kapText" class="fw-bold">0%</span></div>
+                        <div class="progress" style="height:10px; background:#333"><div id="kapBar" class="progress-bar" style="width: 0%"></div></div>
+                    </div>
+                </div>
+                <div class="card-custom p-4 mb-3 text-center" style="border: 2px solid #ffc107;">
+                    <span class="label-tech text-white">GEREKEN KONDANSATÖR</span>
+                    <div class="result-value my-1"><span id="qcSonuc">0</span> <span style="font-size:1.5rem; color:#fff">kVar</span></div>
+                    <div id="oneriKutusu" class="mt-3"></div>
+                </div>
+                <div class="card-custom p-4 mb-3 relay-card">
+                    <span class="label-tech text-warning"><i class="fas fa-cogs"></i> RÖLE AYAR REÇETESİ</span>
+                    <h5 id="roleBaslik" class="text-white fw-bold mb-3">Genel Ayarlar</h5>
+                    <div id="roleAyarlari"></div>
+                </div>
             </div>
         </div>
 
-        <div class="card-custom p-4 mb-3 text-center" style="border: 2px solid #00d2d3;">
-            <span class="label-tech text-white">GEREKEN KONDANSATÖR</span>
-            <div class="result-value my-1"><span id="qcSonuc">0</span> <span style="font-size:1.5rem; color:#fff">kVar</span></div>
-            <div id="oneriKutusu" class="mt-3"></div>
-        </div>
+        <div class="tab-pane fade" id="pills-kablo" role="tabpanel">
+            <div class="card-custom p-4">
+                <span class="label-tech"><i class="fas fa-project-diagram"></i> Yük & Ortam</span>
+                
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="text-white small">Güç (kW)</label>
+                        <input type="number" id="guc" class="form-control" placeholder="Örn: 10">
+                    </div>
+                    <div class="col-6">
+                        <label class="text-white small">Mesafe (Metre)</label>
+                        <input type="number" id="mesafe" class="form-control" placeholder="Örn: 50">
+                    </div>
+                </div>
 
-        <div class="card-custom p-4 mb-3 relay-card">
-            <span class="label-tech text-warning"><i class="fas fa-cogs"></i> RÖLE REÇETESİ</span>
-            <h5 id="roleBaslik" class="text-white fw-bold mb-3">Genel Ayarlar</h5>
-            <div id="roleAyarlari"></div>
-            <div class="note-box">
-                <i class="fas fa-exclamation-triangle"></i> <b>Dikkat:</b> Değerler referanstır. Akım trafosu oranını (k) kontrol et!
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="text-white small">Yük Tipi</label>
+                        <select id="yukTipi" class="form-select">
+                            <option value="motor">Motor (%3)</option>
+                            <option value="aydinlatma">Aydınlatma (%1.5)</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="text-white small">Döşeme Yeri</label>
+                        <select id="dosemeTipi" class="form-select">
+                            <option value="toprak">Toprakta (Gömülü)</option>
+                            <option value="hava">Havada (Kanal/Raf)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="text-white small">Gerilim & Malzeme</label>
+                    <div class="input-group">
+                        <select id="voltaj" class="form-select">
+                            <option value="380">380V (Trifaze)</option>
+                            <option value="220">220V (Monofaze)</option>
+                        </select>
+                        <select id="malzeme" class="form-select">
+                            <option value="56">Bakır (Cu)</option>
+                            <option value="35">Alüminyum (Al)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="text-white small">Seçilen Kablo Kesiti</label>
+                    <select id="kesit" class="form-select">
+                        <option value="1.5">1.5 mm²</option>
+                        <option value="2.5">2.5 mm²</option>
+                        <option value="4">4 mm²</option>
+                        <option value="6">6 mm²</option>
+                        <option value="10">10 mm²</option>
+                        <option value="16">16 mm²</option>
+                        <option value="25">25 mm²</option>
+                        <option value="35">35 mm²</option>
+                        <option value="50">50 mm²</option>
+                        <option value="70">70 mm²</option>
+                        <option value="95">95 mm²</option>
+                        <option value="120">120 mm²</option>
+                        <option value="150">150 mm²</option>
+                        <option value="185">185 mm²</option>
+                        <option value="240">240 mm²</option>
+                    </select>
+                </div>
+
+                <button onclick="hesaplaGerilim()" class="btn btn-success w-100 mt-2 fw-bold" style="height:55px;">KONTROL ET</button>
+
+                <div id="sonucKablo" style="display:none;" class="mt-4">
+                    <div id="kabloKutu" class="cable-box">
+                        <h5 id="kabloDurum" class="fw-bold m-0">UYGUN</h5>
+                        <div class="mt-2 small text-white">
+                            Gerilim Düşümü (%e): <span id="yuzdeSonuc" class="fw-bold text-warning"></span>
+                        </div>
+                        <div class="mt-1 small text-white">
+                            Yük Akımı: <span id="akimSonuc" class="fw-bold text-warning"></span> A
+                        </div>
+                        <div class="mt-1 small text-white border-top border-secondary pt-1">
+                            Kablo Kapasitesi: <span id="kabloKapasiteSonuc" class="fw-bold text-info"></span> A
+                            <small id="dosemeBilgisi" class="text-muted"></small>
+                        </div>
+                        <div id="hataMesaji" class="mt-2 text-danger fw-bold small" style="display:none"></div>
+                    </div>
+                    
+                    <div class="mt-3 readable-ref border-top border-secondary pt-2">
+                        <i class="fas fa-book text-success"></i> <b>Kaynak:</b> EMO Yönetmeliği & Tablo 3.4 (VDE 0298)<br>
+                        Isınma ve Gerilim Düşümü kontrolü birlikte yapılmıştır.
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="text-center mt-4 text-secondary small">
-            Ruhi Atakan BEKMEZCİ &copy; 2025
-        </div>
+
     </div>
+    <div class="text-center mt-5 text-secondary small">Ruhi Atakan BEKMEZCİ &copy; 2025</div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 
-    // 1. ŞEHİR ve EDAŞ VERİTABANI
-    const edasData = {
-        'MEDAŞ': [68, 42, 70, 51, 40, 50], // Aksaray, Konya, Karaman, Niğde, Kırşehir, Nevşehir
-        'BEDAŞ': [34], // İstanbul Avrupa (Basitlik için tüm İst)
-        'BAŞKENT': [6, 74, 18, 71, 37, 67, 03], // Ankara, Bartın, Çankırı, Kırıkkale, Kastamonu, Zonguldak
-        'TOROSLAR': [01, 33, 27, 31, 80, 79], // Adana, Mersin, Gaziantep...
-        'GEDİZ': [35, 45], // İzmir, Manisa
-        'UEDAŞ': [16, 10, 17, 77], // Bursa, Balıkesir...
-        'YEDAŞ': [55, 05, 19, 52, 57], // Samsun...
-        'DİCLE': [21, 63, 47, 72, 73, 56], // Diyarbakır...
-        'VEDAŞ': [65, 13, 30, 49], // Van, Bitlis...
-        'ÇORUH': [61, 53, 08, 28, 29], // Trabzon...
-        'ARAS': [25, 24, 36, 04, 76, 75, 12], // Erzurum...
-        'FIRAT': [23, 44, 12, 62], // Elazığ...
-        'AKDENİZ': [07, 15, 32], // Antalya...
-        'ADM': [20, 09, 48], // Denizli...
-        'OEDAŞ': [26, 03, 43, 64, 11], // Eskişehir...
-        'SEDAŞ': [41, 54, 14, 81], // Kocaeli...
-        'KCETAŞ': [38], // Kayseri
-        // Diğerleri 'DİĞER' kategorisine düşecek
-    };
-
-    const sehirler = [
-        "Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin", "Aydın", "Balıkesir",
-        "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli",
-        "Diyarbakır", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari",
-        "Hatay", "Isparta", "Mersin", "İstanbul", "İzmir", "Kars", "Kastamonu", "Kayseri", "Kırklareli", "Kırşehir",
-        "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Kahramanmaraş", "Mardin", "Muğla", "Muş", "Nevşehir",
-        "Niğde", "Ordu", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Tekirdağ", "Tokat",
-        "Trabzon", "Tunceli", "Şanlıurfa", "Uşak", "Van", "Yozgat", "Zonguldak", "Aksaray", "Bayburt", "Karaman",
-        "Kırıkkale", "Batman", "Şırnak", "Bartın", "Ardahan", "Iğdır", "Yalova", "Karabük", "Kilis", "Osmaniye", "Düzce"
-    ];
-
-    // Sayfa Yüklendiğinde Şehirleri Doldur
-    window.onload = function() {
-        let select = document.getElementById('sehirSecim');
-        sehirler.forEach((il, index) => {
-            let option = document.createElement('option');
-            option.value = index + 1; // Plaka kodu
-            option.text = il;
-            if(index + 1 === 68) option.selected = true; // Varsayılan Aksaray
-            select.appendChild(option);
-        });
-        edasGetir(); // Başlangıçta çalıştır
-    };
-
-    function edasGetir() {
-        let plaka = parseInt(document.getElementById('sehirSecim').value);
-        let edasIsmi = "TEDAŞ GENEL";
-        
-        for (const [key, value] of Object.entries(edasData)) {
-            if (value.includes(plaka)) {
-                edasIsmi = key + " BÖLGESİ";
-                break;
-            }
-        }
-        
-        // UI Güncelle
-        document.getElementById('edasBilgi').style.display = 'block';
-        document.getElementById('edasAd').innerText = edasIsmi;
-        document.getElementById('bolgeAdi').innerText = edasIsmi;
-    }
-
-    // RÖLE VERİLERİ (DEĞİŞMEDİ)
+    // VERİ TABANLARI
+    const edasData = { 'MEDAŞ': [68, 42, 70, 51, 40, 50], 'BEDAŞ': [34], 'BAŞKENT': [6, 74, 18, 71, 37, 67, 03], 'TOROSLAR': [01, 33, 27, 31, 80, 79], 'GEDİZ': [35, 45], 'UEDAŞ': [16, 10, 17, 77], 'YEDAŞ': [55, 05, 19, 52, 57], 'DİCLE': [21, 63, 47, 72, 73, 56], 'VEDAŞ': [65, 13, 30, 49], 'ÇORUH': [61, 53, 08, 28, 29], 'ARAS': [25, 24, 36, 04, 76, 75, 12], 'FIRAT': [23, 44, 12, 62], 'AKDENİZ': [07, 15, 32], 'ADM': [20, 09, 48], 'OEDAŞ': [26, 03, 43, 64, 11], 'SEDAŞ': [41, 54, 14, 81], 'KCETAŞ': [38] };
+    const sehirler = ["Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin", "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale", "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Isparta", "Mersin", "İstanbul", "İzmir", "Kars", "Kastamonu", "Kayseri", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya", "Manisa", "Kahramanmaraş", "Mardin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu", "Rize", "Sakarya", "Samsun", "Siirt", "Sinop", "Sivas", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Şanlıurfa", "Uşak", "Van", "Yozgat", "Zonguldak", "Aksaray", "Bayburt", "Karaman", "Kırıkkale", "Batman", "Şırnak", "Bartın", "Ardahan", "Iğdır", "Yalova", "Karabük", "Kilis", "Osmaniye", "Düzce"];
     const roleData = {
         'entes': { title: 'ENTES RG3 Ayarları', params: [{ name: 'Program', val: 'Otomatik' }, { name: 'C/k', val: 'Oto. Öğrenme' }, { name: 'Ton/Toff', val: '10sn / 5sn' }] },
         'kaelse': { title: 'KAEL Varkombi', params: [{ name: 'Cosφ Set', val: '1.000' }, { name: 'Ton/Toff', val: '7 sn' }, { name: 'Prog', val: 'Auto' }] },
@@ -197,10 +225,42 @@
         'genel': { title: 'Genel Pano', params: [{ name: 'Hedef Cosφ', val: '1.00' }, { name: 'Adım Süresi', val: '10sn' }, { name: 'Deşarj', val: 'Bekle' }] }
     };
 
-    function hesapla() {
+    // AKIM KAPASİTELERİ
+    const akimKapasiteleri = {
+        '56': { // BAKIR
+            '1.5': { T: 26, H: 18.5 }, '2.5': { T: 34, H: 25 }, '4': { T: 44, H: 34 }, '6': { T: 56, H: 43 }, '10': { T: 75, H: 60 }, '16': { T: 98, H: 80 }, '25': { T: 128, H: 106 }, '35': { T: 157, H: 131 }, '50': { T: 185, H: 159 }, '70': { T: 228, H: 202 }, '95': { T: 275, H: 244 }, '120': { T: 313, H: 282 }, '150': { T: 353, H: 324 }, '185': { T: 399, H: 371 }, '240': { T: 464, H: 436 }
+        },
+        '35': { // ALÜMİNYUM
+            '1.5': { T: 0, H: 0 }, '2.5': { T: 0, H: 0 }, '4': { T: 0, H: 0 }, '6': { T: 0, H: 0 }, '10': { T: 0, H: 0 }, '16': { T: 75, H: 60 }, '25': { T: 99, H: 83 }, '35': { T: 122, H: 102 }, '50': { T: 142, H: 124 }, '70': { T: 176, H: 158 }, '95': { T: 211, H: 190 }, '120': { T: 242, H: 220 }, '150': { T: 270, H: 252 }, '185': { T: 308, H: 289 }, '240': { T: 363, H: 339 }
+        }
+    };
+
+    window.onload = function() {
+        let select = document.getElementById('sehirSecim');
+        sehirler.forEach((il, index) => {
+            let option = document.createElement('option');
+            option.value = index + 1; option.text = il;
+            if(index + 1 === 68) option.selected = true; 
+            select.appendChild(option);
+        });
+        edasGetir();
+    };
+
+    function edasGetir() {
+        let plaka = parseInt(document.getElementById('sehirSecim').value);
+        let edasIsmi = "TEDAŞ GENEL";
+        for (const [key, value] of Object.entries(edasData)) {
+            if (value.includes(plaka)) { edasIsmi = key + " BÖLGESİ"; break; }
+        }
+        document.getElementById('edasBilgi').style.display = 'block';
+        document.getElementById('edasAd').innerText = edasIsmi;
+        document.getElementById('bolgeAdi').innerText = edasIsmi;
+    }
+
+    function hesaplaKomp() {
         let p = parseFloat(document.getElementById('aktif').value);
-        let ri = parseFloat(document.getElementById('enduktif').value); 
-        let rc = parseFloat(document.getElementById('kapasitif').value); 
+        let ri = parseFloat(document.getElementById('enduktif').value);
+        let rc = parseFloat(document.getElementById('kapasitif').value);
         let marka = document.getElementById('roleMarka').value;
 
         if (!p) { alert("Aktif değer girilmeli!"); return; }
@@ -211,13 +271,23 @@
         let qc = (endOran > 10) ? p * ((ri/p) - 0.05) : 0;
         if (qc < 0) qc = 0;
 
-        document.getElementById('sonucAlani').style.display = 'block';
-        setTimeout(() => { document.getElementById('sonucAlani').scrollIntoView({behavior: 'smooth'}); }, 100);
+        document.getElementById('sonucKomp').style.display = 'block';
+        setTimeout(() => { document.getElementById('sonucKomp').scrollIntoView({behavior: 'smooth'}); }, 100);
 
         updateBar('end', endOran, 20);
         updateBar('kap', kapOran, 15);
         document.getElementById('qcSonuc').innerText = qc.toFixed(1);
-        kademeOner(qc);
+        
+        let kutu = document.getElementById('oneriKutusu');
+        if (qc <= 0.5) { kutu.innerHTML = '<span class="text-success small"><i class="fas fa-check"></i> Stabil.</span>'; }
+        else {
+            let standartlar = [50, 40, 30, 25, 20, 15, 12.5, 10, 7.5, 5, 2.5, 1.5, 1];
+            let kalan = qc; let onerilenler = [];
+            standartlar.forEach(kap => { while (kalan >= kap * 0.9) { onerilenler.push(kap); kalan -= kap; } });
+            if (onerilenler.length === 0 && kalan > 0.5) onerilenler.push('1'); 
+            let html = ''; onerilenler.forEach(val => { html += `<span class="step-badge">+${val}</span>`; });
+            kutu.innerHTML = html;
+        }
 
         let data = roleData[marka];
         document.getElementById('roleBaslik').innerText = data.title;
@@ -235,25 +305,82 @@
         bar.style.width = percent + '%';
         text.innerText = '%' + val.toFixed(1);
         if (val > limit) {
-            bar.className = 'progress-bar bg-danger progress-bar-striped progress-bar-animated';
-            text.className = 'fw-bold text-danger';
-        } else if (val > (limit - 5)) {
-            bar.className = 'progress-bar bg-warning';
+            bar.className = 'progress-bar bg-danger'; text.className = 'fw-bold text-danger';
         } else {
-            bar.className = 'progress-bar bg-success';
-            text.className = 'fw-bold text-success';
+            bar.className = 'progress-bar bg-success'; text.className = 'fw-bold text-success';
         }
     }
 
-    function kademeOner(ihtiyac) {
-        let kutu = document.getElementById('oneriKutusu');
-        if (ihtiyac <= 0.5) { kutu.innerHTML = '<span class="text-success small"><i class="fas fa-check"></i> Stabil.</span>'; return; }
-        let standartlar = [50, 40, 30, 25, 20, 15, 12.5, 10, 7.5, 5, 2.5, 1.5, 1];
-        let kalan = ihtiyac; let onerilenler = [];
-        standartlar.forEach(kap => { while (kalan >= kap * 0.9) { onerilenler.push(kap); kalan -= kap; } });
-        if (onerilenler.length === 0 && kalan > 0.5) onerilenler.push('1'); 
-        let html = ''; onerilenler.forEach(val => { html += `<span class="step-badge">+${val}</span>`; });
-        kutu.innerHTML = html;
+    function hesaplaGerilim() {
+        let P = parseFloat(document.getElementById('guc').value);
+        let L = parseFloat(document.getElementById('mesafe').value);
+        let U = parseFloat(document.getElementById('voltaj').value);
+        let k = document.getElementById('malzeme').value;
+        let S = document.getElementById('kesit').value;
+        let yukTipi = document.getElementById('yukTipi').value;
+        let doseme = document.getElementById('dosemeTipi').value;
+
+        if (!P || !L) { alert("Güç ve Mesafe girilmedi!"); return; }
+
+        let I = 0;
+        let U_val = parseFloat(U);
+        if (U_val === 380) { I = (P * 1000) / (1.732 * U_val * 0.8); } 
+        else { I = (P * 1000) / (U_val * 0.8); }
+
+        let k_val = parseFloat(k);
+        let S_val = parseFloat(S);
+        let katsayi = (U_val === 220) ? 200 : 100;
+        let e_yuzde = (katsayi * L * (P * 1000)) / (k_val * S_val * (U_val * U_val));
+
+        let kapasite = 0;
+        if (akimKapasiteleri[k] && akimKapasiteleri[k][S]) {
+            kapasite = (doseme === 'toprak') ? akimKapasiteleri[k][S].T : akimKapasiteleri[k][S].H;
+        }
+
+        document.getElementById('sonucKablo').style.display = 'block';
+        document.getElementById('yuzdeSonuc').innerText = "%" + e_yuzde.toFixed(2);
+        document.getElementById('akimSonuc').innerText = I.toFixed(1);
+        
+        if(kapasite > 0) {
+            document.getElementById('kabloKapasiteSonuc').innerText = kapasite;
+            document.getElementById('dosemeBilgisi').innerText = (doseme === 'toprak' ? "(Toprakta)" : "(Havada)");
+        } else {
+            document.getElementById('kabloKapasiteSonuc').innerText = "Veri Yok";
+        }
+
+        let kutu = document.getElementById('kabloKutu');
+        let durum = document.getElementById('kabloDurum');
+        let hataMesaji = document.getElementById('hataMesaji');
+        hataMesaji.style.display = 'none';
+
+        let sinir = (yukTipi === 'aydinlatma') ? 1.5 : 3.0;
+        let hataVar = false;
+        let mesajlar = [];
+
+        if (yukTipi === 'aydinlatma' && S_val < 1.5) { mesajlar.push("Min. Aydınlatma kesiti 1.5mm² olmalı."); hataVar = true; }
+        if (yukTipi === 'motor' && S_val < 2.5) { mesajlar.push("Min. Kuvvet kesiti 2.5mm² olmalı."); hataVar = true; }
+        
+        if (e_yuzde > sinir) { mesajlar.push("Gerilim düşümü %" + sinir + " sınırını aşıyor!"); hataVar = true; }
+
+        if (kapasite > 0 && I > kapasite) {
+            mesajlar.push("KABLO YANAR! Çekilen akım, kablo kapasitesini aşıyor."); 
+            hataVar = true; 
+        } else if (kapasite === 0) {
+             mesajlar.push("Bu kesit/malzeme için akım verisi yok (Kesit çok küçük).");
+             hataVar = true;
+        }
+
+        if (hataVar) {
+            kutu.className = "cable-box danger-box";
+            durum.innerText = "UYGUN DEĞİL!";
+            durum.className = "fw-bold text-danger";
+            hataMesaji.style.display = 'block';
+            hataMesaji.innerHTML = mesajlar.join("<br>");
+        } else {
+            kutu.className = "cable-box";
+            durum.innerText = "TESİSAT UYGUN ✅";
+            durum.className = "fw-bold text-success";
+        }
     }
 </script>
 </body>
