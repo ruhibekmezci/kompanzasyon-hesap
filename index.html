@@ -33,7 +33,7 @@
     </ul>
 
     <div class="tab-content" id="pills-tabContent">
-        
+
         <div class="tab-pane fade show active" id="pills-komp" role="tabpanel">
             <div class="card-custom">
                 <span class="label-tech">Lokasyon & Cihaz</span>
@@ -58,7 +58,7 @@
                 </div>
                 <button onclick="hesaplaKomp()" class="btn btn-primary w-100 mt-3 shadow-sm">ANALİZ ET</button>
             </div>
-            
+
             <div id="sonucKomp" style="display:none;">
                 <div class="card-custom">
                     <span class="label-tech">Ceza Durumu</span>
@@ -90,7 +90,7 @@
                     <input type="radio" id="modeP" name="calcMode" value="P" checked onclick="toggleInputMode()"><label for="modeP">GÜÇ (kW)</label>
                     <input type="radio" id="modeI" name="calcMode" value="I" onclick="toggleInputMode()"><label for="modeI">AKIM (A)</label>
                 </div>
-                
+
                 <div class="row g-2 mb-3">
                     <div class="col-6"><input type="number" id="inpDeger" class="form-control" placeholder="kW Giriniz"><small class="text-muted" id="inpEtiket">Aktif Güç</small></div>
                     <div class="col-6"><input type="number" id="mesafe" class="form-control" placeholder="Metre"><small class="text-muted">Uzunluk</small></div>
@@ -104,7 +104,7 @@
                         <select id="malzeme" class="form-select"><option value="56">Bakır (Cu)</option><option value="35">Alüminyum</option></select>
                     </div>
                 </div>
-                
+
                 <div class="row g-2 mb-3">
                     <div class="col-6">
                         <select id="kesit" class="form-select"></select>
@@ -115,7 +115,7 @@
                          <small class="text-muted">Ortam</small>
                     </div>
                 </div>
-                
+
                 <div class="row g-2 mb-3">
                      <div class="col-6">
                         <select id="yukTipi" class="form-select"><option value="motor">Motor (%3)</option><option value="aydinlatma">Ayd. (%1.5)</option></select>
@@ -126,7 +126,7 @@
                 </div>
 
                 <button onclick="hesaplaGerilim()" class="btn btn-success w-100 mt-2 shadow-sm">HESAPLA</button>
-                
+
                 <div id="sonucKablo" style="display:none;" class="mt-4">
                     <div id="kabloKutu" class="cable-box">
                         <h5 id="kabloDurum" class="fw-bold m-0">UYGUN</h5>
@@ -142,7 +142,7 @@
                             </div>
                         </div>
                         <div class="mt-2 small pt-2 border-top border-secondary">
-                            Akım Taşıma Kapasitesi: <span id="kabloKapasiteSonuc" class="fw-bold"></span> A 
+                            Akım Taşıma Kapasitesi: <span id="kabloKapasiteSonuc" class="fw-bold"></span> A
                         </div>
                         <div id="hataMesaji" class="mt-2 fw-bold small" style="display:none"></div>
                     </div>
@@ -227,10 +227,69 @@
             </div>
         </div>
 
+        <div class="tab-pane fade" id="pills-kisadevre" role="tabpanel">
+            <div class="card-custom">
+                <span class="label-tech" style="color:var(--primary-color)">Kısa Devre Hesabı</span>
+
+                <div class="mb-3">
+                    <input type="number" id="trafoGucu" class="form-control" placeholder="Trafo Gücü (kVA)">
+                    <small class="text-muted">Trafo Gücü (Sn)</small>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                         <input type="number" id="kdMesafe" class="form-control" placeholder="Metre">
+                         <small class="text-muted">Kablo Uzunluğu</small>
+                    </div>
+                    <div class="col-6">
+                        <select id="kdKesit" class="form-select">
+                            <option value="1.5">1.5 mm²</option>
+                            <option value="2.5">2.5 mm²</option>
+                            <option value="4">4 mm²</option>
+                            <option value="6">6 mm²</option>
+                            <option value="10">10 mm²</option>
+                            <option value="16">16 mm²</option>
+                            <option value="25">25 mm²</option>
+                            <option value="35">35 mm²</option>
+                            <option value="50">50 mm²</option>
+                            <option value="70">70 mm²</option>
+                            <option value="95">95 mm²</option>
+                            <option value="120">120 mm²</option>
+                            <option value="150">150 mm²</option>
+                            <option value="185">185 mm²</option>
+                            <option value="240">240 mm²</option>
+                        </select>
+                         <small class="text-muted">Kesit</small>
+                    </div>
+                </div>
+
+                <button onclick="hesaplaKisaDevre()" class="btn btn-warning w-100 mt-2 shadow-sm text-dark fw-bold">HESAPLA</button>
+
+                <div id="sonucKisaDevre" style="display:none;" class="mt-4">
+                     <div class="cable-box" style="border-color:var(--warning-color); background:#fff9db; color:#856404">
+                        <h5 class="fw-bold m-0 text-center">SONUÇLAR</h5>
+                        <div class="row mt-3 text-center">
+                            <div class="col-6 border-end border-secondary">
+                                <small>Kısa Devre Akımı</small>
+                                <div class="fw-bold h4 m-0"><span id="ikSonuc"></span> kA</div>
+                            </div>
+                            <div class="col-6">
+                                <small>Trafo Uçlarında</small>
+                                <div class="fw-bold h4 m-0"><span id="ikTrafoSonuc"></span> kA</div>
+                            </div>
+                        </div>
+                        <div class="mt-2 small pt-2 border-top border-secondary text-center">
+                            Önerilen KA Değeri: <span id="kaOneri" class="fw-bold"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="tab-pane fade" id="pills-araclar" role="tabpanel">
             <div class="card-custom">
                 <span class="label-tech" style="color:var(--primary-color)">Güç Hesaplayıcı</span>
-                
+
                 <div class="row g-2 mb-3">
                     <div class="col-6">
                         <input type="number" id="calcV" class="form-control" placeholder="V">
@@ -255,7 +314,7 @@
                 <div class="toggle-btn-group mb-3">
                     <input type="radio" id="faz1" name="fazTip" value="1">
                     <label for="faz1">1 FAZ</label>
-                    
+
                     <input type="radio" id="faz3" name="fazTip" value="3" checked>
                     <label for="faz3">3 FAZ</label>
                 </div>
@@ -296,41 +355,6 @@
                     <h3 class="fw-bold text-dark m-0" id="convRes">0</h3>
                 </div>
                 <button onclick="aracCevir()" class="btn btn-outline-primary w-100 mt-2 shadow-sm fw-bold">ÇEVİR</button>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="pills-araclar" role="tabpanel">
-            <div class="card-custom mb-4">
-                <span class="label-tech">Güç Hesaplayıcı</span>
-                <div class="row g-2 mb-3">
-                    <div class="col-6"><input type="number" id="calcV" class="form-control" placeholder="V"></div>
-                    <div class="col-6"><input type="number" id="calcI" class="form-control" placeholder="A"></div>
-                </div>
-                <div class="mb-3"><select id="calcCos" class="form-select"><option value="0.8">Cosφ 0.80</option><option value="0.7">Cosφ 0.70</option><option value="0.9">Cosφ 0.90</option><option value="1.0">Cosφ 1.00</option></select></div>
-                <div class="toggle-btn-group mb-3">
-                    <input type="radio" id="faz1" name="fazTip" value="1"><label for="faz1">1 FAZ</label>
-                    <input type="radio" id="faz3" name="fazTip" value="3" checked><label for="faz3">3 FAZ</label>
-                </div>
-                <div class="d-flex gap-2">
-                    <button onclick="aracGucHesapla()" class="btn btn-info flex-grow-1 text-white shadow-sm">HESAPLA</button>
-                    <button onclick="raporAl()" class="btn btn-outline-dark shadow-sm">RAPOR</button>
-                </div>
-                <div id="aracGucSonuc" style="display:none;" class="mt-3 pt-3 border-top text-center">
-                    <div class="row">
-                        <div class="col-4 border-end"><small class="text-muted">Aktif</small><br><span id="resP" class="fw-bold text-primary"></span> kW</div>
-                        <div class="col-4 border-end"><small class="text-muted">Reaktif</small><br><span id="resQ" class="fw-bold text-primary"></span> kVAr</div>
-                        <div class="col-4"><small class="text-muted">Görünür</small><br><span id="resS" class="fw-bold text-primary"></span> kVA</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-custom">
-                <span class="label-tech">Birim Çevirici</span>
-                <div class="input-group mb-3">
-                    <input type="number" id="convVal" class="form-control" placeholder="Değer">
-                    <select id="convType" class="form-select" style="max-width:120px;"><option value="hp_kw">HP -> kW</option><option value="kw_hp">kW -> HP</option></select>
-                </div>
-                <div class="text-center p-2 bg-light rounded border mb-3"><h3 class="fw-bold text-dark m-0" id="convRes">0</h3></div>
-                <button onclick="aracCevir()" class="btn btn-outline-primary w-100 shadow-sm">Çevir</button>
             </div>
         </div>
 
